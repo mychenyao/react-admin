@@ -23,6 +23,7 @@ export default {
             path: '/',
             name: '用户管理',
             children: [
+
                 {
                     name: ' 异常用户',
                     component: unusualUser,
