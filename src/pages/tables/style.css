@@ -1,0 +1,8 @@
+.operation_list {
+    display: flex;
+}
+.operation_list > span {
+    color: #409eff;
+    flex: 1;
+    cursor: pointer;
+}

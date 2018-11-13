@@ -1,0 +1,48 @@
+#login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('https://raw.githubusercontent.com/zhangZhiHao1996/image-store/master/react-admin-master/bg1.jpg') no-repeat center center;
+  > .login-form{
+    width: 350px;
+    padding: 3em;
+    background: rgba(0,0,0,0.4);
+    h3 {
+      color: #D3D7F7;
+      margin-top: 3em;
+    }
+    .login_form_item {
+      display: flex;
+      align-items: center;
+      .login_input {
+        margin-left: 5px;
+        background: rgba(0,0,0,0.1);
+        outline: none;
+        color: #4FA1D9;
+        border:none;
+        width: 100%;
+        font-weight: bold;
+        border-radius: 4px;
+      }
+
+    }
+    .login-form-button {
+      background: transparent;
+      height: 40px;
+      border:solid 2px #4FA1D9;
+      border-radius: 50px;
+      flex: 1;
+    }
+    .login-form-register {
+      border: none;
+    }
+    .login_text {
+      color: #fff;
+    }
+  }
+}
+input:-webkit-autofill {
+  background: red !important;
+}
