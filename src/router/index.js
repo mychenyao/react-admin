@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {HashRouter, Route, Switch, Redirect} from 'react-router-dom';
-import Home from '../pages/home'
-import Login from '../pages/login/login'
+import Home from '@/pages/home'
+import Login from '@/pages/login/login'
 
 class Routers extends Component {
 

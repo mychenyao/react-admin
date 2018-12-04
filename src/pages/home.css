@@ -28,7 +28,7 @@
 
 .router_list {
     display: inline-block;
-    width: 90%;
+    /*width: 9em;*/
 }
 
 .router_list > a {

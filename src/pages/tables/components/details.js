@@ -14,7 +14,6 @@ const tailFormItemLayout = {
 export default class RouterChild extends Component {
     render() {
         // const { getFieldDecorator } = this.props.form
-        // console.log(getFieldDecorator)
         return (
             <section>
                 <Modal

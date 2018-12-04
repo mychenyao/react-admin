@@ -221,6 +221,7 @@ module.exports = {
       .map(ext => `.${ext}`)
       .filter(ext => useTypeScript || !ext.includes('ts')),
     alias: {
+      '@': path.resolve(__dirname, '../src'),
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -244,6 +245,20 @@ module.exports = {
       PnpWebpackPlugin.moduleLoader(module),
     ],
   },
+    devServer: {
+        inline: true,
+        port: 3000,
+        proxy: {
+            '/api': {
+                target: 'http://api.k780.com:88',
+                secure: true,
+                pathRewrite: {
+                    "^/api": ""
+                },
+                changeOrigin: true
+            }
+        }
+    },
   module: {
     strictExportPresence: true,
     rules: [

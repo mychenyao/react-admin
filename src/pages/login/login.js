@@ -15,7 +15,6 @@ export default class Login extends Component {
         const userName = e.target.value
         this.setState({userName})
     }
-
     setPassword = e => {
         const password = e.target.value
         this.setState({password})
@@ -60,11 +59,9 @@ export default class Login extends Component {
     login() {
         const {userName, password} = this.state
         if(!userName.trim()) {
-            console.log('kk')
             return message.error('请输入用户名')
         } else if(!password.trim()) {
-            console.log('kk12')
-          return message.error('请输入密码')
+            return message.error('请输入密码')
         }
         setSessionStorage('token', userName.trim())
         if(getSessionStorage('token')) this.props.history.push('/')
