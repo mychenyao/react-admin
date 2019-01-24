@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {setSessionStorage, getSessionStorage} from '../../utils/storage'
+import React, { Component } from 'react'
+// import { setSessionStorage, getSessionStorage } from '../../utils/storage'
 import { Form, Icon, message, Button } from 'antd';
 import './style.less'
 const FormItem = Form.Item;
@@ -8,21 +8,22 @@ export default class Login extends Component {
         super(props)
         this.state = {
             userName: '',
-            password: ''
+            password: '',
+            captcha: '000000'
         }
     }
     setUserName = e => {
         const userName = e.target.value
-        this.setState({userName})
+        this.setState({ userName })
     }
     setPassword = e => {
         const password = e.target.value
-        this.setState({password})
+        this.setState({ password })
     }
 
     render() {
         return (
-            <section id = {'login'}>
+            <section id={'login'}>
                 <Form className="login-form">
                     <FormItem>
                         <h3>管理员登陆</h3>
@@ -30,13 +31,13 @@ export default class Login extends Component {
                     <FormItem>
                         <div className='login_form_item'>
                             <Icon type="user" style={{ color: '#fff', fontSize: 18 }} />
-                            <input type="text" onChange={this.setUserName} value={this.state.userName} className={'login_input'}/>
+                            <input type="text" onChange={this.setUserName} value={this.state.userName} className={'login_input'} />
                         </div>
                     </FormItem>
                     <FormItem>
                         <div className='login_form_item'>
                             <Icon type="lock" style={{ color: '#fff', fontSize: 18 }} />
-                            <input type="password" onChange={this.setPassword} value={this.state.password} className={'login_input'}/>
+                            <input type="password" onChange={this.setPassword} value={this.state.password} className={'login_input'} />
                         </div>
                     </FormItem>
                     <FormItem>
@@ -57,13 +58,23 @@ export default class Login extends Component {
         );
     }
     login() {
-        const {userName, password} = this.state
-        if(!userName.trim()) {
+        const { userName, password, captcha } = this.state
+        if (!userName.trim()) {
             return message.error('请输入用户名')
-        } else if(!password.trim()) {
+        } else if (!password.trim()) {
             return message.error('请输入密码')
         }
-        setSessionStorage('token', userName.trim())
-        if(getSessionStorage('token')) this.props.history.push('/')
+        this.$http.post('/security/sendCaptcha', { username: this.state.userName }).then(res => {
+            if (res.data.code === 200) {
+                this.$http.post('security/signIn', {
+                    username: userName,
+                    password,
+                    captcha
+                }).then(res => {
+                    const { data } = res
+                    if(data.code === 200) this.props.history.push('/')
+                })
+            }
+        })
     }
 }

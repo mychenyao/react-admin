@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal} from 'antd'
+import { Modal} from 'antd'
 import { connect } from 'react-redux'
 import * as actions from '@/reduc/actions'
 // import axios from 'axios'

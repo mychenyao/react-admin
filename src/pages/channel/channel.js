@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './style.less'
 import { Button } from 'antd'
 import { connect } from 'react-redux'
-import * as actions from '@/reduc/actions'
+// import * as actions from '@/reduc/actions'
 import ChannelDetail from './components/channelDetail'
 import mapDispatch from '@/reduc/mapDispatch'
 // import axios from 'axios'

@@ -3,7 +3,8 @@ import {Row, Select, Col, Table, Pagination, Button, Input} from 'antd'
 import './style.css'
 import Details from './components/details'
 import filter from '../../static/filters'
-const time = new Date()-0
+
+const time = new Date() - 0
 
 class Tables extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Tables extends Component {
                 title: '日期',
                 key: 'time',
                 dataIndex: 'time',
-                render(v,e) {
+                render(v, e) {
                     return filter.moment(e.time)
                 }
             }, {
@@ -50,9 +51,9 @@ class Tables extends Component {
                     return (<div className={'operation_list'}>
                             <span onClick={() => this.openDetails()}
                             >详情</span>
-                                <span>详情</span>
-                                <span>详情</span>
-                            </div>)
+                        <span>详情</span>
+                        <span>详情</span>
+                    </div>)
                 }
             },
             ],
@@ -74,7 +75,7 @@ class Tables extends Component {
                     name: '陈尧',
                     userId: '121212KK474784',
                     id: '32455255',
-                    time: time-200
+                    time: time - 200
                 }, {
                     key: '4',
                     price: 22.25,
@@ -163,7 +164,7 @@ class Tables extends Component {
                 <Row className={'table_container'}>
                     <Col span={24}>
                         <Table
-                            scroll={{ x: 1200}}
+                            scroll={{x: 1200}}
                             size="middle"
                             bordered
                             columns={this.state.columns}

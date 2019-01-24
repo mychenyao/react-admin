@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {HashRouter, Route, Switch, Redirect} from 'react-router-dom';
 import Home from '@/pages/home'
 import Login from '@/pages/login/login'
+import Test from '@/pages/Test'
 
 class Routers extends Component {
 
@@ -9,9 +10,10 @@ class Routers extends Component {
         return (
             <HashRouter>
                 <Switch>
-                    <Route exact path="/" render={() => <Redirect push to='/home/order/order'></Redirect>}/>
-                    <Route path="/home" component={Home}/>
+                    <Route exact path="/" render={() => <Redirect push to='/nav/index/accountList'></Redirect>}/>
+                    <Route path="/nav" component={Home}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/test" component={Test}/>
                 </Switch>
             </HashRouter>
         );

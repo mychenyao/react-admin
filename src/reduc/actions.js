@@ -6,7 +6,3 @@ export const channelDetail = val =>  {
         val
     }
 }
-export const decrement = counterIndex => ({
-    type: actionTypes.DECREMENT,
-    counterIndex
-})
