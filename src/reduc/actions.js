@@ -6,3 +6,16 @@ export const channelDetail = val =>  {
         val
     }
 }
+export const toggleCollapsed = val =>  {
+    return {
+        type: actionTypes.SET_COLLAPSED,
+        val
+    }
+}
+
+export const setHeaderList = val =>  {
+    return {
+        type: actionTypes.SET_HEADER_LIST,
+        val
+    }
+}

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 // import { setSessionStorage, getSessionStorage } from '../../utils/storage'
 import { Form, Icon, message, Button } from 'antd';
-import './style.less'
+import styles from './style.less'
 const FormItem = Form.Item;
+console.log('kk')
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -11,11 +12,12 @@ export default class Login extends Component {
             password: '',
             captcha: '000000'
         }
+        console.log('kk22')
     }
     setUserName = e => {
         const userName = e.target.value
         this.setState({ userName })
-    }
+}
     setPassword = e => {
         const password = e.target.value
         this.setState({ password })
@@ -23,35 +25,35 @@ export default class Login extends Component {
 
     render() {
         return (
-            <section id={'login'}>
-                <Form className="login-form">
+            <section id={styles.login}>
+                <Form className={styles.login_form}>
                     <FormItem>
                         <h3>管理员登陆</h3>
                     </FormItem>
                     <FormItem>
-                        <div className='login_form_item'>
+                        <div className={styles.login_form_item}>
                             <Icon type="user" style={{ color: '#fff', fontSize: 18 }} />
-                            <input type="text" onChange={this.setUserName} value={this.state.userName} className={'login_input'} />
+                            <input type="text" onChange={this.setUserName} value={this.state.userName} className={styles.login_input} />
                         </div>
                     </FormItem>
                     <FormItem>
-                        <div className='login_form_item'>
+                        <div className={styles.login_form_item}>
                             <Icon type="lock" style={{ color: '#fff', fontSize: 18 }} />
-                            <input type="password" onChange={this.setPassword} value={this.state.password} className={'login_input'} />
+                            <input type="password" onChange={this.setPassword} value={this.state.password} className={styles.login_input} />
                         </div>
                     </FormItem>
                     <FormItem>
-                        <div className={'login_form_item'}>
-                            <Button type="primary" onClick={() => this.login()} className="login-form-button">
+                        <div className={styles.login_form_item}>
+                            <Button type="primary" onClick={() => this.login()} className={styles.login_form_button}>
                                 登陆
                             </Button>
-                            <Button type="primary" className="login-form-button login-form-register">
+                            <Button type="primary" className={`${styles.login_form_register} ${styles.login_form_button}`}>
                                 注册
                             </Button>
                         </div>
                     </FormItem>
                     <FormItem>
-                        <p className={'login_text'}>欢迎登陆后台管理系统</p>
+                        <p className={styles.login_text}>欢迎登陆后台管理系统</p>
                     </FormItem>
                 </Form>
             </section>

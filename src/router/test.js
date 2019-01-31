@@ -17,10 +17,11 @@ class Login extends React.Component {
     }
 
     login = () => {
+        console.log(this.props.history.push)
         // 事实上，这最好应该再增加一个校验逻辑
-        UserInfo.userName = this.state.userName
-        // 赋值后，记得再跳转一下（登录路径和私有页面的路径是不同的）
-        this.props.history.push(`${this.props.match.url.replace(/\/[^/]+$/, '')}/protect`)
+        // UserInfo.userName = this.state.userName
+        // // 赋值后，记得再跳转一下（登录路径和私有页面的路径是不同的）
+        // this.props.history.push(`${this.props.match.url.replace(/\/[^/]+$/, '')}/protect`)
     }
 
     changeName = e => {
@@ -69,7 +70,7 @@ const RedirectExample = props => (
     <Router>
         <div>
             <ul>
-                <li><Link to={`${props.match.url}`}>普通页面（无需登录）</Link></li>
+                {/*<li><Link to={`${props.match.url}`}>普通页面（无需登录）</Link></li>*/}
                 <li><Link to={`${props.match.url}/protect`}>需要登录的页面</Link></li>
             </ul>
             <hr/>
@@ -81,4 +82,4 @@ const RedirectExample = props => (
 )
 
 
-export default RedirectExample
+export default Login

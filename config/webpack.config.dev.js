@@ -176,8 +176,8 @@ module.exports = {
     //     inline: true,
     //     port: 3000,
     //     proxy: {
-    //         '/api': {
-    //             target: 'http://192.168.2.14:81',
+    //         '/': {
+    //             target: 'http://192.168.2.111:6661',
     //             secure: true,
     //             pathRewrite: {
     //               "^/api": ""

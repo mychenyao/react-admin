@@ -1,8 +1,13 @@
 import * as actions from '@/reduc/actions'
+import {getSessionStorage} from "@/utils/storage"
+import axios from 'axios'
 export default {
-    channelDetail(val, dispatch) {
-        setTimeout(() => {
-            dispatch(actions.channelDetail(val))
-        }, 2000)
+    getHeaderList(dispatch) {
+        const applicationId = !!getSessionStorage('applicationId') ? String(getSessionStorage('applicationId')) : '1'
+        return axios.post('security/listUserApps').then(res => {
+            const {data} = res
+            dispatch(actions.setHeaderList(data.body))
+            return applicationId
+        })
     }
 }

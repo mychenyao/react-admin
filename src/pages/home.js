@@ -1,147 +1,132 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './home.css'
-import {Menu, Icon, Button, Avatar, Tabs, Dropdown} from 'antd'
+import { Menu, Icon, Tabs } from 'antd'
+import { setSessionStorage, getSessionStorage } from "../utils/storage"
 import RouterChild from "../router/routerChild";
-// import routerList from '../router/routerList'
-// import { setSessionStorage } from '../utils/storage'
-import {connect} from 'react-redux'
-import jsonp from 'jsonp'
-// import { Redirect } from 'react-router-dom';
-import ps from 'qs'
+import { connect } from 'react-redux'
+import Headers from './header'
+import mapDispatch from '@/reduc/mapDispatch'
 
-const {SubMenu} = Menu
+const { SubMenu } = Menu
+const applicationId = !!getSessionStorage('applicationId') ? String(getSessionStorage('applicationId')) : '1'
 
 class Router extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            collapsed: false,
             activeKey: '/home/order/order',
             pane: [],
-            visible: false,
             index: 1,
+            headerList: [],
+            menuSelectedKeys: [],
+            tabsActiveKey: applicationId,
             menuList: []
         }
     }
 
     setPane(tabsItem, activeKey) {
+        const { menuId } = tabsItem
+        if (this.state.pane.some(v => menuId === v.menuId)) return
         this.state.pane.push(tabsItem)
-        this.setState({activeKey, pane: this.state.pane})
+        this.setState({ activeKey, pane: this.state.pane, menuSelectedKeys: [String(menuId)] })
     }
 
     pushPath(v) {
-        const {location} = this.props
+        const { location } = this.props
         if (v.url === location.pathname) return
-        let tabsItem = Object.assign({key: v.url}, v)
+        let tabsItem = Object.assign({ key: v.url }, v)
         let flag = !this.state.pane.some(e => e.url === v.url)
-        flag ? this.setPane(tabsItem, v.url) : this.setState({activeKey: v.url})
+        flag ? this.setPane(tabsItem, v.url) : this.setState({ activeKey: v.url, menuSelectedKeys: [String(v.menuId)] })
         this.props.history.push(v.url)
     }
 
-    toggleCollapsed = () => {
-        this.setState({
-            collapsed: !this.state.collapsed
-        })
-    }
-
-    componentDidMount() {
-        jsonp('https://m.douban.com/rexxar/api/v2/subject_collection/book_fiction/items', {
-            os: 'android',
-            callback: 'jsonp1',
-            start: 0,
-            count: 8,
-            loc_id: 0,
-            _: 0
-        }, (e, t) => {
-            console.log(e)
-            console.log(t)
-        })
-        // console.log(jsonp)
-        this.$http.post('security/userDirectoryMenu', {applicationId: 1}).then(res => {
-            const {data} = res
+    getMenuList(applicationId) {
+        this.$http.post('security/userDirectoryMenu', { applicationId }).then(res => {
+            const { data } = res
             if (data.code === 200) {
-                this.setState({menuList: data.body}, () => {
-                    const {location} = this.props
+                const tabsItem = (menuItem, applicationId) => Object.assign({
+                    key: menuItem.url,
+                    parentId: applicationId
+                }, menuItem)
+                setSessionStorage('applicationId', applicationId)
+                this.setState({ menuList: data.body }, () => {
+                    const { location } = this.props
                     const pushPane = v => {
                         if (v.url === location.pathname) {
-                            let tabsItem = Object.assign({key: v.url}, v)
-                            this.setPane(tabsItem, v.url)
+                            this.setPane(tabsItem(v, applicationId), v.url)
                             return
                         }
                     }
                     this.state.menuList.forEach(v => {
-                        if (v.children) v.children.forEach(e => pushPane(e))
+                        v.parentId = applicationId
+                        if (v.children) v.children.forEach(e => {
+                            e.parentId = applicationId
+                            pushPane(e)
+                        })
                         pushPane(v)
                     })
+                    if (!this.state.pane.length) {
+                        const menuList = this.state.menuList[0]
+                        if (menuList.children) {
+                            const { url } = menuList.children[0]
+                            this.props.history.push(url)
+                            this.setPane(tabsItem(menuList.children[0], applicationId), url)
+                        } else {
+                            const { url } = menuList
+                            this.props.history.push(url)
+                            this.setPane(tabsItem(menuList, applicationId), url)
+                        }
+                    }
                 })
             }
         })
     }
 
-    handleMenuClick = e => {
-        if (e.key === '2') {
-            this.$http.post('/security/signOut').then((res) => {
-                if (res.data.code === 200) this.props.history.push('/login')
-            })
-        }
+    componentDidMount() {
+        mapDispatch.getHeaderList(this.props.dispatch).then(id => this.getMenuList(id))
     }
 
-    handleVisibleChange = visible => this.setState({visible})
+    header(id) {
+        this.setState({ tabsActiveKey: String(id) })
+        this.getMenuList(id)
+    }
+
+    menuSelected({ selectedKeys }) {
+        this.setState({ menuSelectedKeys: selectedKeys })
+    }
 
     render() {
-        const menu = (
-            <Menu onClick={this.handleMenuClick}>
-                <Menu.Item key="1">修改密码</Menu.Item>
-                <Menu.Item key="2">退出</Menu.Item>
-            </Menu>
-        )
         return (
             <div className={'app'} id={'app'}>
-                <div className={'nav_container'}>
-                    <div>
-                        <Button onClick={this.toggleCollapsed}
-                                style={{marginBottom: 10, backgroundColor: '#242f42', border: 'none'}}>
-                            <Icon style={{fontSize: 20, color: '#fff'}}
-                                  type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
-                        </Button>
-                        <h1>后台管理系统</h1>
-                    </div>
-                    <div className={'message_info'}>
-                        <Dropdown overlay={menu}
-                                  onVisibleChange={this.handleVisibleChange}
-                                  visible={this.state.visible}
-                        >
-                            <Avatar size={64} src="http://blog.gdfengshuo.com/example/work/static/img/img.jpg"/>
-                        </Dropdown>
-                    </div>
-                </div>
-                <section style={{display: 'flex', flex: 1}}>
-                    <div style={!this.state.collapsed ? {width: '200px', height: '100%'} : {height: '100%'}}>
+                <Headers history={this.props.history} header={(id) => this.header(id)}
+                    tabsActiveKey={this.state.tabsActiveKey} />
+                <section style={{ display: 'flex', flex: 1 }}>
+                    <div style={!this.props.collapsed ? { width: '200px', height: '100%' } : { height: '100%' }}>
                         <Menu
-                            style={{height: '100%'}}
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
+                            style={{ height: '100%', overflow: 'auto' }}
                             mode="inline"
                             theme="dark"
-                            inlineCollapsed={this.state.collapsed}
+                            onSelect={e => this.menuSelected(e)}
+                            selectedKeys={this.state.menuSelectedKeys}
+                            inlineCollapsed={this.props.collapsed}
                         >
                             {
                                 this.state.menuList.map(v => v.children ?
-                                    <SubMenu key={v.menuId} title={<span><Icon type="inbox"/>
-                                        <span className="router_list" style={{color: "#fff"}}>{v.label}</span></span>}>
+                                    <SubMenu key={v.menuId} title={<span><Icon type="inbox" />
+                                        <span className="router_list" style={{ color: "#fff" }}>{v.label}</span></span>}>
                                         {
                                             v.children.map(e =>
                                                 <Menu.Item key={e.menuId} id={e.url} onClick={() => this.pushPath(e)}>
-                                                    <Icon type="inbox"/>
-                                                    <span className="router_list" style={{color: "#fff"}}>
+                                                    <Icon type="inbox" />
+                                                    <span className="router_list" style={{ color: "#fff" }}>
                                                         {e.label}
                                                     </span>
                                                 </Menu.Item>
                                             )
                                         }
                                     </SubMenu> : <Menu.Item key={v.menuId} onClick={() => this.pushPath(v)}>
-                                        <Icon type="inbox"/>
-                                        <span className="router_list" style={{color: "#fff"}}>
+                                        <Icon type="inbox" />
+                                        <span className="router_list" style={{ color: "#fff" }}>
                                             {v.label}
                                         </span>
                                     </Menu.Item>
@@ -153,7 +138,7 @@ class Router extends Component {
                         <section className={'nav_tabs_container'}>
                             <Tabs
                                 hideAdd
-                                onChange={e => this.onChange(e)}
+                                onChange={(e, v) => this.onChange(e, v)}
                                 activeKey={this.state.activeKey}
                                 type="editable-card"
                                 onEdit={(targetKey, action) => this.onEdit(targetKey, action)}
@@ -165,7 +150,7 @@ class Router extends Component {
                                 }
                             </Tabs>
                         </section>
-                        <RouterChild/>
+                        <RouterChild />
                     </div>
                 </section>
             </div>
@@ -173,14 +158,21 @@ class Router extends Component {
     }
 
     onChange(activeKey) {
-        this.setState({activeKey})
+        this.setState({ activeKey })
         const pane = this.state.pane.filter(v => activeKey === v.key)
+        const applicationId = String(pane[0].parentId)
+        if (applicationId === String(this.state.menuList[0].parentId)) {
+            this.setState({ tabsActiveKey: applicationId })
+        } else {
+            this.header(applicationId)
+        }
         this.pushPath(pane[0])
     }
 
     onEdit(targetKey) {
-        let activeKey = this.state.activeKey
+        let { activeKey } = this.state
         let lastIndex = 0
+        if (this.state.pane.length <= 1) return
         this.state.pane.forEach((pane, i) => {
             if (pane.key === targetKey) {
                 lastIndex = i - 1
@@ -192,10 +184,11 @@ class Router extends Component {
             activeKey = pane[lastIndex].key
             this.onChange(activeKey)
         }
-        this.setState({pane, activeKey})
+        this.setState({ pane, activeKey })
     }
 }
 
+const mapStateToProps = state => state
 // function logAccessToRroperties( obj, ref ) {
 //     return new Proxy(obj, {
 //         get(target, key) {
@@ -228,4 +221,4 @@ class Router extends Component {
 // })
 // person.age = 29
 
-export default connect()(Router)
+export default connect(mapStateToProps)(Router)

@@ -8,6 +8,16 @@ export default (state, action) => {
             ...state,
             channelDetailShow: action.val
         }
+        case actionTypes.SET_COLLAPSED:
+            return {
+                ...state,
+                collapsed: action.val
+            }
+            case actionTypes.SET_HEADER_LIST:
+            return {
+                ...state,
+                headerList: action.val
+            }
         default:
         return state
     }

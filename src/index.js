@@ -13,7 +13,6 @@ import  './utils/httpConfig'
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
-import './utils/httpConfig'
 Component.prototype.LabelContainer = LabelContainer
 Component.prototype.$http = axios
 ReactDOM.render(
