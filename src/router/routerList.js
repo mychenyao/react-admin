@@ -15,9 +15,8 @@ export default {
                 {
                     name: '首页',
                     component: Home,
-                    path: '/nav/index/index'   
-                },
-                {
+                    path: '/nav/index/index'
+                }, {
                     name: '用户',
                     component: user,
                     path: '/nav/index/userList'

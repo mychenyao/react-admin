@@ -12,7 +12,6 @@ class Order extends Component {
                 var r = Math.sin(2 * t) * Math.cos(2 * t)
                 data.push([r, i])
         }
-
        let option = {
             title: {
                 text: '极坐标双数值轴'

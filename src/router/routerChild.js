@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import routerList from './routerList'
 class RouterChild extends Component {
     render() {
-        const router = v=> <Route key={v.path} path={v.path} component={v.component}/>
+        const router = v=><Route key={v.path} path={v.path} component={v.component}/>
         const childrenRouter = v => v.map(e => router(e))
         return (
             <div className="menu_right_content">
@@ -15,4 +15,4 @@ class RouterChild extends Component {
     }
 }
 
-export default RouterChild;
+export default RouterChild

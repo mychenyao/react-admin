@@ -49,8 +49,7 @@ class Tables extends Component {
                 width: 200,
                 render: () => {
                     return (<div className={'operation_list'}>
-                            <span onClick={() => this.openDetails()}
-                            >详情</span>
+                            <span onClick={() => this.openDetails()}>详情</span>
                         <span>详情</span>
                         <span>详情</span>
                     </div>)
@@ -157,7 +156,6 @@ class Tables extends Component {
                 </Row>
                 <Row>
                     <Col span={24} style={{textAlign: 'right'}}>
-
                         <Button type="primary" htmlType="submit">查询</Button>
                     </Col>
                 </Row>

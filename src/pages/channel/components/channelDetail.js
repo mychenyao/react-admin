@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
-import { Modal} from 'antd'
-import { connect } from 'react-redux'
+import React, {Component} from 'react';
+import {Modal} from 'antd'
+import {connect} from 'react-redux'
 import * as actions from '@/reduc/actions'
+
 // import axios from 'axios'
 
 class ChannelDetail extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     componentDidMount() {
-     
     }
 
     render() {
         return (
             <div>
-                  <Modal
+                <Modal
                     title="渠道详情"
                     visible={this.props.channelDetailShow}
                     onOk={() => this.props.close()}
@@ -32,6 +30,7 @@ class ChannelDetail extends Component {
     }
 
 }
+
 const mapStateToProps = state => state
 const mapDispatchToProps = dispatch => {
     return {

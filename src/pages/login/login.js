@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-// import { setSessionStorage, getSessionStorage } from '../../utils/storage'
 import { Form, Icon, message, Button } from 'antd';
 import styles from './style.less'
 const FormItem = Form.Item;
-console.log('kk')
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -12,7 +10,6 @@ export default class Login extends Component {
             password: '',
             captcha: '000000'
         }
-        console.log('kk22')
     }
     setUserName = e => {
         const userName = e.target.value
@@ -39,7 +36,7 @@ export default class Login extends Component {
                     <FormItem>
                         <div className={styles.login_form_item}>
                             <Icon type="lock" style={{ color: '#fff', fontSize: 18 }} />
-                            <input type="password" onChange={this.setPassword} value={this.state.password} className={styles.login_input} />
+                            <input type="password" onChange={this.setPassword} onKeyDown={e => this.onKeyDown(e)} value={this.state.password} className={styles.login_input} />
                         </div>
                     </FormItem>
                     <FormItem>
@@ -58,6 +55,9 @@ export default class Login extends Component {
                 </Form>
             </section>
         );
+    }
+    onKeyDown({keyCode}) {
+       if(keyCode === 13) this.login()
     }
     login() {
         const { userName, password, captcha } = this.state
