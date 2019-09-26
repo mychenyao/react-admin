@@ -1,0 +1,107 @@
+@import '//at.alicdn.com/t/font_530866_25uiq3r7nygi.css';
+
+.app {
+    background: #f0f0f0;
+}
+
+#app {
+    display: flex;
+    overflow: hidden;
+    height: 100%;
+    flex-direction: column;
+}
+
+.menu_right {
+    flex: 1;
+    margin-top: 10px;
+    padding: 10px;
+    height: 100%;
+    position: relative;
+}
+
+.nav_tabs_container {
+    position: absolute;
+    width: 98%;
+    top: 0;
+}
+
+.router_list {
+    display: inline-block;
+    color: #fff;
+}
+
+.router_list > a {
+    display: block;
+    text-decoration: none;
+}
+
+a:hover, a:visited, a:link, a:active, a:focus {
+    text-decoration: none !important;
+}
+
+.nav_container {
+    width: 100vw;
+    height: 80px;
+    background: #242f42;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav_container > div > h1 {
+    color: #fff;
+    font-size: 20px;
+    padding-left: 1em;
+}
+
+.nav_container > div {
+    display: flex;
+    align-items: center;
+    padding-left: 2em;
+    justify-content: space-around;
+}
+
+.message_info {
+    padding-right: 3em;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.menu_right_content {
+    background: #fff;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 50px;
+    bottom: 20px;
+    margin: 0 10px;
+    overflow-y: auto;
+}
+
+.pagination {
+    float: right;
+    margin-top: 2em;
+}
+
+.label_container {
+    display: flex;
+    margin-bottom: 1em;
+    align-items: center;
+}
+
+.label_container > .label {
+    width: 10em;
+    margin-right: 1em;
+    text-align: right;
+}
+
+.table_container {
+    margin-top: 5em;
+}
+#root {
+    height: 100%;
+}
