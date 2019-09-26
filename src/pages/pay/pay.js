@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 // import './style.css
+import { connect } from 'dva'
 
-export default class Pay extends Component {
+class Pay extends Component {
 
     render() {
         return (
@@ -12,48 +13,38 @@ export default class Pay extends Component {
                 <p className='class_name_chen'> 财务</p>
                 <p className='class_name_chen'> 财务</p>
                 <p className='class_name_chen'> 财务</p>
+
+
                 <p className='class_name_chen'> 财务</p>
                 <p className='class_name_chen'> 财务</p>
+                <p className='class_name_chen'> 财务</p>    <p className='class_name_chen'> 财务</p>
+
                 <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
-                <p className='class_name_chen'> 财务</p>
+                    <p className='class_name_chen'> 财务</p>
+                    <p className='class_name_chen'> 财务</p>
+                    <p className='class_name_chen'> 财务</p>
+                    <p className='class_name_chen'> 财务</p>
+                    <p className='class_name_chen'> 财务</p>
+
+                        <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p> 
+
+
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务</p>
+                            <p className='class_name_chen'> 财务33</p>
+
             </section>
         );
     }
 }
+export default connect(({ pay }) => ({
+    pay
+  }))(Pay);

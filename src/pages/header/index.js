@@ -54,7 +54,7 @@ class Index extends Component {
                               onVisibleChange={this.handleVisibleChange}
                               visible={this.state.visible}
                     >
-                        <Avatar size={64} src="http://blog.gdfengshuo.com/example/work/static/img/img.jpg"/>
+                        <Avatar size={64} src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1569496064359&di=2a1922bf9285f9114e664b4f2872830e&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F9c660b2f59caf8055c9da29c877b7a176f3850011cdb-WH9o7X_fw658"/>
                     </Dropdown>
                 </div>
             </div>

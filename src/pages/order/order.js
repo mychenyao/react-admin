@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import echarts from 'echarts'
 import './style.css'
+import { connect } from 'dva'
 
 class Order extends Component {
     componentDidMount() {
@@ -56,4 +57,6 @@ class Order extends Component {
     }
 }
 
-export default Order;
+export default connect(({ order }) => ({
+    order
+  }))(Order);

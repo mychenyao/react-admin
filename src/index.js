@@ -14,20 +14,22 @@ import  './utils/httpConfig'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import dva from 'dva'
-let app = dva()
+import createHistory from 'history/createBrowserHistory';
+let app = dva({
+    history: createHistory()
+})
 Component.prototype.LabelContainer = LabelContainer
 Component.prototype.$http = axios
-app.model(require('@/models/global.js').default)
+
+
+// app.model(require('@/models/global.js').default)
 app.router(({app}) => {
 return <App app={app} />
 })
 app.start('#root')
 // ReactDOM.render(
-//     <Provider store={store}>
-//         <App/>
-//     </Provider>, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
+//      <Provider store={store}>
+//          <App/> 
+//       </Provider>
+//   , document.getElementById('root'));
 serviceWorker.unregister()
