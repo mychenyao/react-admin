@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Icon, message, Button } from 'antd';
 import styles from './style.less'
-const FormItem = Form.Item;
+const FormItem = Form.Item
 export default class Login extends Component {
     constructor(props) {
         super(props)
